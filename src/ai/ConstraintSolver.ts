@@ -1,5 +1,5 @@
-import { Coordinate, Constraint, Cell } from '../types/index';
-import { GameBoard } from '../models/GameBoard';
+import { Coordinate, Constraint, Cell } from '../types/index.ts';
+import { GameBoard } from '../models/GameBoard.ts';
 
 /**
  * ConstraintSolver uses logical deduction to identify guaranteed safe cells and mines

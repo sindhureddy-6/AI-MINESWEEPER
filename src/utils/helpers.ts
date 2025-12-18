@@ -1,4 +1,4 @@
-import { Coordinate, Cell } from '../types'
+import { Coordinate, Cell } from '../types/index.ts'
 
 /**
  * Utility functions for coordinate and board operations

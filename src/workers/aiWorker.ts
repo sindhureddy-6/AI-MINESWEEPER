@@ -3,9 +3,9 @@
  * Requirements: 2.1, 2.2, 2.3, 2.4
  */
 
-import { HintEngine } from '../ai/HintEngine';
-import { GameBoard } from '../models/GameBoard';
-import { Cell, HintAnalysis, Coordinate } from '../types/index';
+import { HintEngine } from '../ai/HintEngine.ts';
+import { GameBoard } from '../models/GameBoard.ts';
+import { Cell, HintAnalysis, Coordinate } from '../types/index.ts';
 
 // Message types for worker communication
 interface WorkerMessage {

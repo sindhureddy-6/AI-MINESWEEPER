@@ -3,7 +3,7 @@
  * Requirements: 2.1, 2.2, 2.3, 2.4
  */
 
-import { Cell, HintAnalysis, Coordinate } from '../types/index';
+import { Cell, HintAnalysis, Coordinate } from '../types/index.ts';
 
 interface WorkerMessage {
   id: string;

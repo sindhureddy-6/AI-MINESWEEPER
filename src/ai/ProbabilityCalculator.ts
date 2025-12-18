@@ -1,6 +1,6 @@
-import { Coordinate, Constraint, Cell } from '../types/index';
-import { GameBoard } from '../models/GameBoard';
-import { ConstraintSolver } from './ConstraintSolver';
+import { Coordinate, Constraint, Cell } from '../types/index.ts';
+import { GameBoard } from '../models/GameBoard.ts';
+import { ConstraintSolver } from './ConstraintSolver.ts';
 
 /**
  * Configuration for mine assignment in constraint satisfaction

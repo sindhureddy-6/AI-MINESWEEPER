@@ -3,11 +3,11 @@
  * Requirements: 2.1, 2.2, 2.3, 2.4
  */
 
-import { Coordinate, HintAnalysis, Cell } from '../types/index';
-import { GameBoard } from '../models/GameBoard';
-import { HintEngine } from './HintEngine';
-import { AIWorkerManager } from '../services/AIWorkerManager';
-import { PerformanceMonitor } from '../services/PerformanceMonitor';
+import { Coordinate, HintAnalysis, Cell } from '../types/index.ts';
+import { GameBoard } from '../models/GameBoard.ts';
+import { HintEngine } from './HintEngine.ts';
+import { AIWorkerManager } from '../services/AIWorkerManager.ts';
+import { PerformanceMonitor } from '../services/PerformanceMonitor.ts';
 
 export interface EnhancedHintAnalysis extends HintAnalysis {
   performance?: {
