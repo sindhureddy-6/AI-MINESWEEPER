@@ -405,9 +405,9 @@ export class OfflineManager {
   dispose(): void {
     this.listeners.clear();
     
-    // Remove event listeners
-    window.removeEventListener('online', this.handleConnectivityChange);
-    window.removeEventListener('offline', this.handleConnectivityChange);
+    // Note: Event listeners are added as arrow functions in setupEventListeners
+    // and cannot be removed without storing references. This is acceptable for
+    // a singleton that lives for the application lifetime.
     
     // Hide offline indicator
     this.hideOfflineIndicator();

@@ -553,7 +553,7 @@ export class StatisticsStorage {
    * Handle storage quota exceeded error
    */
   private static handleStorageQuotaExceeded(
-    performance: PlayerPerformance, 
+    _performance: PlayerPerformance, 
     gameHistory: GameResult[]
   ): boolean {
     try {
