@@ -33,6 +33,9 @@ jobs:
         npx tsc --version
         echo "Checking TypeScript compilation:"
 
+    - name: Type check
+      run: npx tsc --noEmit
+
     - name: Run tests
       run: npm test
 

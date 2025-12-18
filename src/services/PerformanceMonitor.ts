@@ -417,7 +417,7 @@ class FrameRateMonitor {
  */
 class MemoryMonitor {
   private isEnabled: boolean = true;
-  private intervalId: number | null = null;
+  private intervalId: NodeJS.Timeout | number | null = null;
   private currentInfo: MemoryInfo | null = null;
 
   constructor() {

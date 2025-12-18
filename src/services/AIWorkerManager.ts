@@ -20,7 +20,7 @@ interface WorkerResponse {
 interface PendingRequest {
   resolve: (value: any) => void;
   reject: (error: Error) => void;
-  timeout: number;
+  timeout: NodeJS.Timeout | number;
   startTime: number;
 }
 
