@@ -9,10 +9,26 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    
+    /* Path mapping for better module resolution */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@/types/*": ["src/types/*"],
+      "@/models/*": ["src/models/*"],
+      "@/ai/*": ["src/ai/*"],
+      "@/services/*": ["src/services/*"],
+      "@/components/*": ["src/components/*"],
+      "@/controllers/*": ["src/controllers/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/workers/*": ["src/workers/*"]
+    },
 
     /* Linting */
     "strict": true,
