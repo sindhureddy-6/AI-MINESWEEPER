@@ -1,5 +1,5 @@
-import { PlayerPerformance, GameResult, PerformanceTrend, DifficultyLevel } from '../types/index.js';
-import { STORAGE_KEYS, GAME_CONSTANTS } from '../utils/constants.js';
+import { PlayerPerformance, GameResult, PerformanceTrend, DifficultyLevel } from '../types/index';
+import { STORAGE_KEYS, GAME_CONSTANTS } from '../utils/constants';
 
 /**
  * Serializable performance data for storage

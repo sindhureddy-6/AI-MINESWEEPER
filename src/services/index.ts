@@ -1,3 +1,3 @@
-export { GameStateStorage } from './GameStateStorage.js';
-export { StatisticsStorage } from './StatisticsStorage.js';
-export { OfflineManager } from './OfflineManager.js';
+export { GameStateStorage } from './GameStateStorage';
+export { StatisticsStorage } from './StatisticsStorage';
+export { OfflineManager } from './OfflineManager';

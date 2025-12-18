@@ -1,5 +1,5 @@
-import { GameState, DifficultySettings } from '../types/index.js';
-import { STORAGE_KEYS } from '../utils/constants.js';
+import { GameState, DifficultySettings } from '../types/index';
+import { STORAGE_KEYS } from '../utils/constants';
 
 /**
  * Serializable game state for storage

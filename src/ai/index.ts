@@ -1,3 +1,3 @@
-export { ConstraintSolver } from './ConstraintSolver.js';
-export { ProbabilityCalculator } from './ProbabilityCalculator.js';
-export { HintEngine } from './HintEngine.js';
+export { ConstraintSolver } from './ConstraintSolver';
+export { ProbabilityCalculator } from './ProbabilityCalculator';
+export { HintEngine } from './HintEngine';
