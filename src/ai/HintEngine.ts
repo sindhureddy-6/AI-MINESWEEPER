@@ -1,5 +1,5 @@
 import { Coordinate, HintAnalysis } from '../types/index.js';
-import { GameBoard } from '../models/GameBoard.js';
+import { GameBoard } from '../models/GameBoard';
 import { ConstraintSolver } from './ConstraintSolver.js';
 import { ProbabilityCalculator } from './ProbabilityCalculator.js';
 

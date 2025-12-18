@@ -1,5 +1,5 @@
-import { Coordinate, Constraint } from '../types/index.js';
-import { GameBoard } from '../models/GameBoard.js';
+import { Coordinate, Constraint, Cell } from '../types/index';
+import { GameBoard } from '../models/GameBoard';
 
 /**
  * ConstraintSolver uses logical deduction to identify guaranteed safe cells and mines
@@ -23,11 +23,11 @@ export class ConstraintSolver {
 
       // Get unrevealed adjacent cells (excluding flagged cells)
       const unrevealedAdjacent = adjacentCells.filter(
-        c => !c.isRevealed && !c.isFlagged
+        (c: Cell) => !c.isRevealed && !c.isFlagged
       );
 
       // Count already flagged adjacent cells
-      const flaggedAdjacent = adjacentCells.filter(c => c.isFlagged);
+      const flaggedAdjacent = adjacentCells.filter((c: Cell) => c.isFlagged);
 
       // Calculate remaining mines needed in unrevealed cells
       const remainingMines = cell.adjacentMines - flaggedAdjacent.length;
@@ -37,7 +37,7 @@ export class ConstraintSolver {
         constraints.push({
           centerCell: cell.coordinates,
           requiredMines: remainingMines,
-          affectedCells: unrevealedAdjacent.map(c => c.coordinates)
+          affectedCells: unrevealedAdjacent.map((c: Cell) => c.coordinates)
         });
       }
     }

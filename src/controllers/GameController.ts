@@ -1,12 +1,12 @@
-import { GameState, DifficultySettings, Coordinate, ClickType, HintAnalysis, GameResult } from '../types/index.js';
-import { GameStateManager } from '../models/GameStateManager.js';
-import { HintEngine } from '../ai/HintEngine.js';
-import { EnhancedHintEngine } from '../ai/EnhancedHintEngine.js';
-import { PlayerPerformanceTracker } from '../models/PlayerPerformanceTracker.js';
-import { DifficultyAdapter } from '../models/DifficultyAdapter.js';
-import { GameStateStorage } from '../services/GameStateStorage.js';
-import { OfflineManager } from '../services/OfflineManager.js';
-import { PerformanceMonitor } from '../services/PerformanceMonitor.js';
+import { GameState, DifficultySettings, Coordinate, ClickType, HintAnalysis, GameResult, Cell } from '../types/index';
+import { GameStateManager } from '../models/GameStateManager';
+import { HintEngine } from '../ai/HintEngine';
+import { EnhancedHintEngine } from '../ai/EnhancedHintEngine';
+import { PlayerPerformanceTracker } from '../models/PlayerPerformanceTracker';
+import { DifficultyAdapter } from '../models/DifficultyAdapter';
+import { GameStateStorage } from '../services/GameStateStorage';
+import { OfflineManager } from '../services/OfflineManager';
+import { PerformanceMonitor } from '../services/PerformanceMonitor';
 
 /**
  * Event types for game controller notifications
@@ -189,7 +189,7 @@ export class GameController {
 
     const gameBoard = this.gameStateManager.getGameBoard();
     const adjacentCells = gameBoard.getAdjacentCells(x, y);
-    const flaggedCount = adjacentCells.filter(c => c.isFlagged).length;
+    const flaggedCount = adjacentCells.filter((c: Cell) => c.isFlagged).length;
 
     // Only chord if flag count matches adjacent mine count
     if (flaggedCount !== cell.adjacentMines) {
@@ -197,7 +197,7 @@ export class GameController {
     }
 
     let anyRevealed = false;
-    adjacentCells.forEach(adjCell => {
+    adjacentCells.forEach((adjCell: Cell) => {
       if (!adjCell.isRevealed && !adjCell.isFlagged) {
         const revealed = this.gameStateManager.revealCell(
           adjCell.coordinates.x,

@@ -4,7 +4,7 @@
  */
 
 import { Coordinate, HintAnalysis, Cell } from '../types/index.js';
-import { GameBoard } from '../models/GameBoard.js';
+import { GameBoard } from '../models/GameBoard';
 import { HintEngine } from './HintEngine.js';
 import { AIWorkerManager } from '../services/AIWorkerManager.js';
 import { PerformanceMonitor } from '../services/PerformanceMonitor.js';

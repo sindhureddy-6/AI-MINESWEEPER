@@ -1,6 +1,6 @@
-import { Coordinate, Constraint } from '../types/index.js';
-import { GameBoard } from '../models/GameBoard.js';
-import { ConstraintSolver } from './ConstraintSolver.js';
+import { Coordinate, Constraint, Cell } from '../types/index';
+import { GameBoard } from '../models/GameBoard';
+import { ConstraintSolver } from './ConstraintSolver';
 
 /**
  * Configuration for mine assignment in constraint satisfaction
@@ -23,8 +23,8 @@ export class ProbabilityCalculator {
     const probabilities = new Map<Coordinate, number>();
     const constraints = ConstraintSolver.extractConstraints(gameBoard);
     const unrevealedCells = gameBoard.getUnrevealedCells()
-      .filter(cell => !cell.isFlagged)
-      .map(cell => cell.coordinates);
+      .filter((cell: Cell) => !cell.isFlagged)
+      .map((cell: Cell) => cell.coordinates);
 
     if (unrevealedCells.length === 0) {
       return probabilities;
@@ -39,10 +39,10 @@ export class ProbabilityCalculator {
     });
 
     // Separate constrained and unconstrained cells
-    const constrainedCoords = unrevealedCells.filter(coord =>
+    const constrainedCoords = unrevealedCells.filter((coord: Coordinate) =>
       constrainedCells.has(this.coordToString(coord))
     );
-    const unconstrainedCoords = unrevealedCells.filter(coord =>
+    const unconstrainedCoords = unrevealedCells.filter((coord: Coordinate) =>
       !constrainedCells.has(this.coordToString(coord))
     );
 
@@ -65,7 +65,7 @@ export class ProbabilityCalculator {
         unconstrainedCoords.length
       );
       
-      unconstrainedCoords.forEach(coord => {
+      unconstrainedCoords.forEach((coord: Coordinate) => {
         probabilities.set(coord, unconstrainedProb);
       });
     }
@@ -202,7 +202,7 @@ export class ProbabilityCalculator {
     const totalMines = gameBoard.getMineCount();
     const flaggedCount = gameBoard.getFlaggedCount();
     const revealedMines = gameBoard.getRevealedCells()
-      .filter(cell => cell.hasMine).length;
+      .filter((cell: Cell) => cell.hasMine).length;
     
     const remainingMines = totalMines - flaggedCount - revealedMines;
     
@@ -236,7 +236,7 @@ export class ProbabilityCalculator {
     // Information gain is roughly proportional to:
     // 1. Number of unrevealed adjacent cells (more constraints created)
     // 2. Number of existing adjacent constraints (more deductions possible)
-    const revealedAdjacent = adjacentCells.filter(cell => cell.isRevealed);
+    const revealedAdjacent = adjacentCells.filter((cell: Cell) => cell.isRevealed);
     
     const baseGain = unrevealedAdjacent.length;
     const constraintBonus = revealedAdjacent.length * 0.5;
