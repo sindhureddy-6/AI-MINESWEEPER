@@ -1,12 +1,12 @@
-import { GameState, DifficultySettings, Coordinate, ClickType, HintAnalysis, GameResult, Cell } from '@/types/index';
-import { GameStateManager } from '@/models/GameStateManager';
-import { HintEngine } from '@/ai/HintEngine';
-import { EnhancedHintEngine } from '@/ai/EnhancedHintEngine';
-import { PlayerPerformanceTracker } from '@/models/PlayerPerformanceTracker';
-import { DifficultyAdapter } from '@/models/DifficultyAdapter';
-import { GameStateStorage } from '@/services/GameStateStorage';
-import { OfflineManager } from '@/services/OfflineManager';
-import { PerformanceMonitor } from '@/services/PerformanceMonitor';
+import { GameState, DifficultySettings, Coordinate, ClickType, HintAnalysis, GameResult, Cell } from '../types/index';
+import { GameStateManager } from '../models/GameStateManager';
+import { HintEngine } from '../ai/HintEngine';
+import { EnhancedHintEngine } from '../ai/EnhancedHintEngine';
+import { PlayerPerformanceTracker } from '../models/PlayerPerformanceTracker';
+import { DifficultyAdapter } from '../models/DifficultyAdapter';
+import { GameStateStorage } from '../services/GameStateStorage';
+import { OfflineManager } from '../services/OfflineManager';
+import { PerformanceMonitor } from '../services/PerformanceMonitor';
 
 /**
  * Event types for game controller notifications
