@@ -1,0 +1,759 @@
+/* GameGrid component styles */
+.game-grid {
+  display: grid;
+  gap: 1px;
+  background-color: #c0c0c0;
+  border: 2px inset #c0c0c0;
+  padding: 4px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Individual cell styles */
+.game-cell {
+  width: 24px;
+  height: 24px;
+  border: 1px outset #c0c0c0;
+  background-color: #c0c0c0;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+  margin: 0;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+.game-cell:hover:not(.disabled):not(.revealed) {
+  background-color: #d0d0d0;
+  border-color: #d0d0d0;
+  transform: scale(1.05);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-cell:active:not(.disabled):not(.revealed) {
+  border: 1px inset #c0c0c0;
+  transform: scale(0.95);
+  transition: all 0.05s ease;
+}
+
+/* Revealed cell styles */
+.game-cell.revealed {
+  border: 1px solid #808080;
+  background-color: #f0f0f0;
+  cursor: default;
+}
+
+.game-cell.revealed:hover {
+  background-color: #f0f0f0;
+}
+
+/* Unrevealed cell styles */
+.game-cell.unrevealed {
+  background-color: #c0c0c0;
+}
+
+/* Flagged cell styles */
+.game-cell.flagged {
+  background-color: #c0c0c0;
+}
+
+.game-cell.flagged .cell-content {
+  animation: flagWave 2s ease-in-out infinite;
+}
+
+.game-cell.flag-appearing .cell-content {
+  animation: flagAppear 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.game-cell.flag-disappearing .cell-content {
+  animation: flagDisappear 0.25s ease-in forwards;
+}
+
+/* Mine cell styles */
+.game-cell.mine {
+  background-color: #ff0000;
+  color: #000000;
+}
+
+.game-cell.mine.exploded {
+  background-color: #ff4444;
+  animation: explosion 0.6s ease-out, explosionShake 0.3s ease-out;
+  position: relative;
+  overflow: visible;
+  z-index: 10;
+}
+
+.game-cell.mine.exploded::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: radial-gradient(circle, 
+    rgba(255, 255, 0, 0.8) 0%, 
+    rgba(255, 165, 0, 0.6) 30%, 
+    rgba(255, 0, 0, 0.4) 60%, 
+    transparent 100%);
+  border-radius: 50%;
+  animation: explosionParticles 0.6s ease-out;
+  pointer-events: none;
+}
+
+.game-cell.mine.exploded::after {
+  content: '💥';
+  position: absolute;
+  top: -8px;
+  left: -8px;
+  font-size: 20px;
+  animation: explosionParticles 0.4s ease-out;
+  pointer-events: none;
+}
+
+/* Number cell styles */
+.game-cell.number-1 { color: #0000ff; }
+.game-cell.number-2 { color: #008000; }
+.game-cell.number-3 { color: #ff0000; }
+.game-cell.number-4 { color: #000080; }
+.game-cell.number-5 { color: #800000; }
+.game-cell.number-6 { color: #008080; }
+.game-cell.number-7 { color: #000000; }
+.game-cell.number-8 { color: #808080; }
+
+/* Hint-related styles */
+.game-cell.hint-safe {
+  background-color: #90ee90 !important;
+  border-color: #32cd32;
+  animation: pulse-safe 1s infinite;
+}
+
+.game-cell.hint-mine {
+  background-color: #ffb6c1 !important;
+  border-color: #ff69b4;
+  animation: pulse-mine 1s infinite;
+}
+
+.game-cell.hint-recommended {
+  background-color: #87ceeb !important;
+  border-color: #4169e1;
+  animation: pulse-recommended 1s infinite;
+}
+
+/* Probability overlay styles */
+.probability-overlay {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  font-size: 8px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.6) 100%);
+  color: white;
+  padding: 1px 3px;
+  border-radius: 3px;
+  line-height: 1;
+  font-weight: 600;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.2s ease;
+}
+
+.game-cell:hover .probability-overlay {
+  transform: scale(1.1);
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+/* Color-coded probability overlays */
+.probability-overlay.safe {
+  background: linear-gradient(135deg, rgba(34, 139, 34, 0.9) 0%, rgba(34, 139, 34, 0.7) 100%);
+  border-color: rgba(144, 238, 144, 0.5);
+}
+
+.probability-overlay.low-risk {
+  background: linear-gradient(135deg, rgba(255, 165, 0, 0.9) 0%, rgba(255, 165, 0, 0.7) 100%);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.probability-overlay.medium-risk {
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.9) 0%, rgba(255, 140, 0, 0.7) 100%);
+  border-color: rgba(255, 165, 0, 0.5);
+}
+
+.probability-overlay.high-risk {
+  background: linear-gradient(135deg, rgba(255, 69, 0, 0.9) 0%, rgba(255, 69, 0, 0.7) 100%);
+  border-color: rgba(255, 99, 71, 0.5);
+}
+
+.probability-overlay.danger {
+  background: linear-gradient(135deg, rgba(220, 20, 60, 0.9) 0%, rgba(220, 20, 60, 0.7) 100%);
+  border-color: rgba(255, 69, 0, 0.5);
+  animation: dangerBlink 1s ease-in-out infinite;
+}
+
+@keyframes dangerBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Probability-based background colors with gradients */
+.game-cell.probability-very-low {
+  background: linear-gradient(135deg, #e6ffe6 0%, #d4f4d4 100%) !important;
+  border-color: #90ee90;
+  box-shadow: inset 0 1px 2px rgba(144, 238, 144, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-cell.probability-low {
+  background: linear-gradient(135deg, #ccffcc 0%, #b3f0b3 100%) !important;
+  border-color: #7dd87d;
+  box-shadow: inset 0 1px 2px rgba(125, 216, 125, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-cell.probability-medium {
+  background: linear-gradient(135deg, #ffffcc 0%, #f0f0aa 100%) !important;
+  border-color: #e6e600;
+  box-shadow: inset 0 1px 2px rgba(230, 230, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-cell.probability-high {
+  background: linear-gradient(135deg, #ffcccc 0%, #f0a0a0 100%) !important;
+  border-color: #ff6b6b;
+  box-shadow: inset 0 1px 2px rgba(255, 107, 107, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-cell.probability-very-high {
+  background: linear-gradient(135deg, #ffaaaa 0%, #ff8888 100%) !important;
+  border-color: #ff4444;
+  box-shadow: inset 0 1px 2px rgba(255, 68, 68, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: dangerPulse 2s ease-in-out infinite;
+}
+
+@keyframes dangerPulse {
+  0%, 100% {
+    box-shadow: inset 0 1px 2px rgba(255, 68, 68, 0.4), 0 0 0 0 rgba(255, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: inset 0 1px 2px rgba(255, 68, 68, 0.6), 0 0 0 2px rgba(255, 68, 68, 0.2);
+  }
+}
+
+/* Animation styles */
+.game-cell.animating {
+  animation: reveal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.game-cell.revealing {
+  animation: cellReveal 0.3s ease-out forwards;
+}
+
+.game-cell.number-revealing {
+  animation: numberReveal 0.5s ease-out forwards;
+}
+
+.game-cell.cascade-revealing {
+  animation: cascadeReveal 0.2s ease-out forwards;
+}
+
+.game-cell.exploding {
+  animation: explosion 0.6s ease-out, explosionShake 0.3s ease-out;
+}
+
+.game-cell.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Cell content positioning */
+.cell-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s ease;
+}
+
+.game-cell.revealed .cell-content {
+  transform: scale(1);
+}
+
+/* Enhanced Animations */
+@keyframes reveal {
+  0% {
+    transform: scale(0.8) rotateY(-90deg);
+    opacity: 0;
+    background-color: #c0c0c0;
+  }
+  50% {
+    transform: scale(1.05) rotateY(-45deg);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+    opacity: 1;
+    background-color: #f0f0f0;
+  }
+}
+
+@keyframes cellReveal {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.6;
+    border-width: 3px;
+  }
+  30% {
+    transform: scale(1.1);
+    opacity: 0.8;
+    border-width: 2px;
+  }
+  70% {
+    transform: scale(0.95);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    border-width: 1px;
+  }
+}
+
+@keyframes numberReveal {
+  0% {
+    transform: scale(0.3) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(-90deg);
+    opacity: 0.7;
+  }
+  80% {
+    transform: scale(0.9) rotate(-10deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes cascadeReveal {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes explosion {
+  0% {
+    transform: scale(1);
+    background-color: #ff0000;
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.8);
+  }
+  25% {
+    transform: scale(1.3);
+    background-color: #ff4400;
+    box-shadow: 0 0 0 8px rgba(255, 68, 0, 0.6);
+  }
+  50% {
+    transform: scale(1.5);
+    background-color: #ffaa00;
+    box-shadow: 0 0 0 16px rgba(255, 170, 0, 0.4);
+  }
+  75% {
+    transform: scale(1.2);
+    background-color: #ff8888;
+    box-shadow: 0 0 0 12px rgba(255, 136, 136, 0.2);
+  }
+  100% {
+    transform: scale(1);
+    background-color: #ff4444;
+    box-shadow: 0 0 0 0 rgba(255, 68, 68, 0);
+  }
+}
+
+@keyframes explosionShake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-2px) rotate(-1deg); }
+  20% { transform: translateX(2px) rotate(1deg); }
+  30% { transform: translateX(-2px) rotate(-1deg); }
+  40% { transform: translateX(2px) rotate(1deg); }
+  50% { transform: translateX(-1px) rotate(-0.5deg); }
+  60% { transform: translateX(1px) rotate(0.5deg); }
+  70% { transform: translateX(-1px) rotate(-0.5deg); }
+  80% { transform: translateX(1px) rotate(0.5deg); }
+  90% { transform: translateX(0) rotate(0deg); }
+}
+
+@keyframes explosionParticles {
+  0% {
+    opacity: 1;
+    transform: scale(0) rotate(0deg);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.5) rotate(180deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(360deg);
+  }
+}
+
+@keyframes flagAppear {
+  0% {
+    transform: scale(0) rotate(-180deg);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2) rotate(-90deg);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes flagDisappear {
+  0% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1) rotate(90deg);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(0) rotate(180deg);
+    opacity: 0;
+  }
+}
+
+@keyframes flagWave {
+  0%, 100% {
+    transform: rotate(-2deg);
+  }
+  50% {
+    transform: rotate(2deg);
+  }
+}
+
+@keyframes pulse-safe {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(50, 205, 50, 0);
+  }
+}
+
+@keyframes pulse-mine {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(255, 105, 180, 0);
+  }
+}
+
+@keyframes pulse-recommended {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(65, 105, 225, 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(65, 105, 225, 0);
+  }
+}
+
+/* Responsive design for mobile devices */
+.game-grid {
+  /* Ensure grid scales properly on all devices */
+  max-width: 100%;
+  overflow: visible;
+}
+
+/* Tablet optimizations */
+@media (max-width: 1024px) {
+  .game-cell {
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
+  }
+  
+  .probability-overlay {
+    font-size: 8px;
+    padding: 1px 2px;
+  }
+}
+
+/* Mobile landscape and portrait */
+@media (max-width: 768px) {
+  .game-cell {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    border-width: 1px;
+  }
+  
+  .probability-overlay {
+    font-size: 9px;
+    padding: 1px 3px;
+  }
+  
+  .game-grid {
+    gap: 1px;
+    padding: 3px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .game-cell {
+    width: 30px;
+    height: 30px;
+    font-size: 15px;
+  }
+  
+  .probability-overlay {
+    font-size: 9px;
+    top: 0px;
+    right: 0px;
+    padding: 1px 2px;
+    border-radius: 2px;
+  }
+  
+  .game-grid {
+    gap: 1px;
+    padding: 2px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 360px) {
+  .game-cell {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .probability-overlay {
+    font-size: 8px;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .game-cell {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+  
+  .probability-overlay {
+    font-size: 8px;
+  }
+  
+  .game-grid {
+    gap: 1px;
+    padding: 2px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .game-cell {
+    /* Ensure minimum touch target size of 44px */
+    min-width: 32px;
+    min-height: 32px;
+    font-size: 16px;
+    /* Remove hover effects on touch devices */
+    transition: transform 0.1s ease, background-color 0.1s ease;
+  }
+  
+  .game-cell:hover:not(.disabled):not(.revealed) {
+    background-color: #c0c0c0;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Enhanced touch feedback */
+  .game-cell:active:not(.disabled):not(.revealed) {
+    background-color: #b0b0b0;
+    transform: scale(0.95);
+    transition: all 0.05s ease;
+  }
+  
+  /* Larger probability overlays for touch */
+  .probability-overlay {
+    font-size: 10px;
+    padding: 2px 4px;
+    min-width: 20px;
+    text-align: center;
+  }
+}
+
+/* High DPI display support */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .game-cell {
+    border-width: 0.5px;
+  }
+  
+  .probability-overlay {
+    border-width: 0.5px;
+  }
+}
+
+/* Extra large touch targets for accessibility */
+@media (pointer: coarse) and (max-width: 480px) {
+  .game-cell {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  
+  .game-grid {
+    gap: 2px;
+    padding: 4px;
+  }
+}
+
+/* Adaptive grid sizing based on board dimensions */
+.game-grid[style*="grid-template-columns: repeat(9"] .game-cell {
+  /* Beginner board - larger cells */
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.game-grid[style*="grid-template-columns: repeat(16"] .game-cell {
+  /* Intermediate board - medium cells */
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+}
+
+.game-grid[style*="grid-template-columns: repeat(30"] .game-cell {
+  /* Expert board - smaller cells */
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+}
+
+/* Mobile adaptive sizing */
+@media (max-width: 768px) {
+  .game-grid[style*="grid-template-columns: repeat(9"] .game-cell {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  
+  .game-grid[style*="grid-template-columns: repeat(16"] .game-cell {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  
+  .game-grid[style*="grid-template-columns: repeat(30"] .game-cell {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .game-grid[style*="grid-template-columns: repeat(9"] .game-cell {
+    width: 38px;
+    height: 38px;
+    font-size: 19px;
+  }
+  
+  .game-grid[style*="grid-template-columns: repeat(16"] .game-cell {
+    width: 22px;
+    height: 22px;
+    font-size: 12px;
+  }
+  
+  .game-grid[style*="grid-template-columns: repeat(30"] .game-cell {
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
+  }
+}
+
+/* Accessibility improvements */
+.game-cell:focus {
+  outline: 2px solid #4169e1;
+  outline-offset: -2px;
+}
+
+.game-cell:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .game-grid {
+    background-color: #404040;
+    border-color: #404040;
+  }
+  
+  .game-cell {
+    background-color: #404040;
+    border-color: #404040;
+    color: #ffffff;
+  }
+  
+  .game-cell.revealed {
+    background-color: #303030;
+    border-color: #606060;
+  }
+  
+  .game-cell:hover:not(.disabled):not(.revealed) {
+    background-color: #505050;
+  }
+}
+
+/* Print styles */
+@media print {
+  .game-grid {
+    border: 1px solid #000;
+  }
+  
+  .game-cell {
+    border: 1px solid #000;
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+  
+  .game-cell.mine {
+    background-color: #ccc !important;
+  }
+  
+  .probability-overlay {
+    display: none;
+  }
+}
