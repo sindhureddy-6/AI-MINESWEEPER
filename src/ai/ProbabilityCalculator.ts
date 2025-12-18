@@ -230,7 +230,7 @@ export class ProbabilityCalculator {
   ): number {
     const adjacentCells = gameBoard.getAdjacentCells(coord.x, coord.y);
     const unrevealedAdjacent = adjacentCells.filter(
-      cell => !cell.isRevealed && !cell.isFlagged
+      (cell: Cell) => !cell.isRevealed && !cell.isFlagged
     );
     
     // Information gain is roughly proportional to:
