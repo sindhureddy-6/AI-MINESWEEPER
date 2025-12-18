@@ -1,7 +1,7 @@
-import { Coordinate, HintAnalysis } from '../types/index';
-import { GameBoard } from '../models/GameBoard';
-import { ConstraintSolver } from './ConstraintSolver';
-import { ProbabilityCalculator } from './ProbabilityCalculator';
+import { Coordinate, HintAnalysis } from '@/types/index';
+import { GameBoard } from '@/models/GameBoard';
+import { ConstraintSolver } from '@/ai/ConstraintSolver';
+import { ProbabilityCalculator } from '@/ai/ProbabilityCalculator';
 
 /**
  * Move recommendation with priority scoring

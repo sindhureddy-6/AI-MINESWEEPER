@@ -1,6 +1,6 @@
-import { Coordinate, Constraint, Cell } from '../types/index';
-import { GameBoard } from '../models/GameBoard';
-import { ConstraintSolver } from './ConstraintSolver';
+import { Coordinate, Constraint, Cell } from '@/types/index';
+import { GameBoard } from '@/models/GameBoard';
+import { ConstraintSolver } from '@/ai/ConstraintSolver';
 
 /**
  * Configuration for mine assignment in constraint satisfaction
