@@ -1,6 +1,6 @@
 # AI Minesweeper
 
-An enhanced version of the classic Minesweeper game with AI-powered hints, adaptive difficulty, and modern web interface.
+An enhanced version of the classic Minesweeper game with AI-powered hints, adaptive difficulty, and modern web interface..
 
 ## Features
 
