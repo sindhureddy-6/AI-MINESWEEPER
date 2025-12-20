@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { HintAnalysis, Coordinate } from '../types/index.js';
+import { HintAnalysis, Coordinate } from '../types/index';
 import './HintOverlay.css';
 
 /**

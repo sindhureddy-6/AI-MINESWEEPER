@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { PlayerPerformance, GameResult } from '../types/index.js';
+import { PlayerPerformance, GameResult } from '../types/index';
 import './StatisticsPanel.css';
 
 /**

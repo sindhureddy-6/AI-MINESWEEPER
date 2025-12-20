@@ -1,10 +1,10 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { GameController } from './controllers/GameController.js';
-import { GameGrid } from './components/GameGrid.js';
-import { HintOverlay, HintDisplayMode } from './components/HintOverlay.js';
-import { StatisticsPanel } from './components/StatisticsPanel.js';
-import { GameState, DifficultySettings, ClickType, HintAnalysis, GameResult, DifficultyLevel } from './types/index.js';
-import { DIFFICULTY_PRESETS } from './utils/constants.js';
+import { GameController } from './controllers/GameController';
+import { GameGrid } from './components/GameGrid';
+import { HintOverlay, HintDisplayMode } from './components/HintOverlay';
+import { StatisticsPanel } from './components/StatisticsPanel';
+import { GameState, DifficultySettings, ClickType, HintAnalysis, GameResult, DifficultyLevel } from './types/index';
+import { DIFFICULTY_PRESETS } from './utils/constants';
 import './App.css';
 
 /**

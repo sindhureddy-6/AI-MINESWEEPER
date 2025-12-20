@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Cell, ClickType, HintAnalysis } from '../types/index.js';
+import { Cell, ClickType, HintAnalysis } from '../types/index';
 import './GameGrid.css';
 
 /**
