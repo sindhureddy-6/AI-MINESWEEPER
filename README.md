@@ -10,7 +10,7 @@ An enhanced version of the classic Minesweeper game with AI-powered hints, adapt
 - Smooth animations and visual effects
 - Performance tracking and statistics
 - Cross-platform support (desktop and mobile)
-- Offline gameplay capability
+- Offline gameplay capability.
 
 ## Tech Stack
 
