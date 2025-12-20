@@ -1,4 +1,4 @@
-import { DifficultySettings, DifficultyLevel } from '../types/index.ts'
+import { DifficultySettings, DifficultyLevel } from '../types/index'
 
 // Predefined difficulty configurations
 export const DIFFICULTY_PRESETS: Record<DifficultyLevel, DifficultySettings> = {

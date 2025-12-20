@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { DifficultyLevel, ClickType } from './index.ts'
+import { DifficultyLevel, ClickType } from './index'
 
 describe('Core Types', () => {
   it('should have correct DifficultyLevel enum values', () => {

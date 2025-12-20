@@ -1,5 +1,5 @@
-import { PlayerPerformance, GameResult, PerformanceTrend, DifficultyLevel } from '../types/index.ts';
-import { STORAGE_KEYS, GAME_CONSTANTS } from '../utils/constants.ts';
+import { PlayerPerformance, GameResult, PerformanceTrend, DifficultyLevel } from '../types/index';
+import { STORAGE_KEYS, GAME_CONSTANTS } from '../utils/constants';
 
 /**
  * Serializable performance data for storage

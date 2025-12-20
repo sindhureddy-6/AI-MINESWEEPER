@@ -1,7 +1,7 @@
-import { Coordinate, HintAnalysis } from '../types/index.ts';
-import { GameBoard } from '../models/GameBoard.ts';
-import { ConstraintSolver } from './ConstraintSolver.ts';
-import { ProbabilityCalculator } from './ProbabilityCalculator.ts';
+import { Coordinate, HintAnalysis } from '../types/index';
+import { GameBoard } from '../models/GameBoard';
+import { ConstraintSolver } from './ConstraintSolver';
+import { ProbabilityCalculator } from './ProbabilityCalculator';
 
 /**
  * Move recommendation with priority scoring
