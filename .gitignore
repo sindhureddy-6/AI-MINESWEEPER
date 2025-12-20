@@ -176,8 +176,4 @@ coverage/
 *.save
 *.backup
 
-# AI model cache (if any)
-.ai-cache/
 
-# Performance monitoring data
-.performance/
