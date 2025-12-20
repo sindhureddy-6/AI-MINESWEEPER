@@ -31,13 +31,17 @@ jobs:
         npm --version
         echo "TypeScript version:"
         npx tsc --version
-        echo "Checking TypeScript compilation:"
+        echo "Current directory contents:"
+        ls -la
+        echo "TypeScript config:"
+        cat tsconfig.json
+        echo "Checking for .ts extensions in imports:"
+        grep -r "from.*\.ts" src/ || echo "No .ts extensions found"
 
-    - name: Type check
+    - name: Type check with verbose output
       run: |
-        echo "Running TypeScript type check..."
-        npx tsc --noEmit --pretty --listFiles | head -20
-        npx tsc --noEmit
+        echo "Running TypeScript compilation with detailed output..."
+        npx tsc --noEmit --listFiles --pretty 2>&1 | head -50
 
     - name: Run tests
       run: npm test

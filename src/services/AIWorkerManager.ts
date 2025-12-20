@@ -62,7 +62,7 @@ export class AIWorkerManager {
       // Create worker from the TypeScript file
       // In production, this would be the compiled JavaScript
       this.worker = new Worker(
-        new URL('../workers/aiWorker.ts', import.meta.url),
+        new URL('../workers/aiWorker', import.meta.url),
         { type: 'module' }
       );
 
